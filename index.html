@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ساعتك | متجر الساعات الفاخرة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0b0b0c;
+    --panel: #151517;
+    --panel-2: #1c1c1f;
+    --gold: #b8935a;
+    --gold-bright: #d4af7a;
+    --cream: #ede8df;
+    --muted: #93908c;
+    --line: #2a2a2d;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--cream);
+    font-family:'Tajawal', sans-serif;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.brand{font-family:'Cairo', sans-serif;}
+
+  /* ---------- Top bar ---------- */
+  .topbar{
+    position:fixed; top:0; right:0; left:0; z-index:50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 6%;
+    background:rgba(11,11,12,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .brand{font-size:22px; font-weight:900; color:var(--cream); letter-spacing:1px;}
+  .brand span{color:var(--gold);}
+  .topbar a.cta-small{
+    border:1px solid var(--gold);
+    color:var(--gold);
+    padding:9px 20px;
+    border-radius:2px;
+    font-size:14px;
+    text-decoration:none;
+    transition:.25s;
+    font-weight:500;
+  }
+  .topbar a.cta-small:hover{background:var(--gold); color:#0b0b0c;}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:120px 6% 60px;
+  }
+  .dial{
+    position:absolute;
+    top:50%; left:50%;
+    width:min(78vw, 620px); height:min(78vw, 620px);
+    transform:translate(-50%,-50%);
+    border-radius:50%;
+    border:1px solid rgba(184,147,90,0.18);
+    pointer-events:none;
+  }
+  .dial::before{
+    content:"";
+    position:absolute; inset:34px;
+    border-radius:50%;
+    border:1px solid rgba(184,147,90,0.1);
+  }
+  .tick{
+    position:absolute;
+    top:50%; left:50%;
+    width:2px; height:14px;
+    background:rgba(184,147,90,0.35);
+    transform-origin:50% min(39vw,310px);
+  }
+  .tick.major{height:22px; width:2px; background:var(--gold);}
+  .hero-inner{position:relative; z-index:2; max-width:720px;}
+  .eyebrow{
+    color:var(--gold);
+    letter-spacing:4px;
+    font-size:13px;
+    font-weight:600;
+    margin-bottom:22px;
+    display:block;
+  }
+  .hero h1{
+    font-size:clamp(34px, 6vw, 62px);
+    font-weight:900;
+    line-height:1.25;
+    margin-bottom:20px;
+  }
+  .hero h1 em{color:var(--gold); font-style:normal;}
+  .hero p{
+    color:var(--muted);
+    font-size:17px;
+    line-height:1.9;
+    max-width:520px;
+    margin:0 auto 34px;
+  }
+  .hero-ctas{display:flex; gap:16px; justify-content:center; flex-wrap:wrap;}
+  .btn-primary{
+    background:var(--gold);
+    color:#0b0b0c;
+    padding:15px 34px;
+    border-radius:2px;
+    text-decoration:none;
+    font-weight:700;
+    font-size:15px;
+    transition:.25s;
+    display:inline-block;
+  }
+  .btn-primary:hover{background:var(--gold-bright);}
+  .btn-ghost{
+    border:1px solid var(--line);
+    color:var(--cream);
+    padding:15px 34px;
+    border-radius:2px;
+    text-decoration:none;
+    font-size:15px;
+    transition:.25s;
+  }
+  .btn-ghost:hover{border-color:var(--gold); color:var(--gold);}
+
+  /* ---------- Section heading ---------- */
+  .section{padding:90px 6%; max-width:1280px; margin:0 auto;}
+  .section-head{text-align:center; margin-bottom:56px;}
+  .section-head .eyebrow{margin-bottom:12px;}
+  .section-head h2{font-size:clamp(26px,4vw,38px); font-weight:700;}
+
+  /* ---------- Products ---------- */
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(270px, 1fr));
+    gap:28px;
+  }
+  .card{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:4px;
+    overflow:hidden;
+    transition:.3s;
+  }
+  .card:hover{border-color:var(--gold); transform:translateY(-4px);}
+  .card-img{
+    aspect-ratio:1/1;
+    background:var(--panel-2);
+    display:flex; align-items:center; justify-content:center;
+    overflow:hidden;
+    position:relative;
+  }
+  .card-img img{width:100%; height:100%; object-fit:cover;}
+  .placeholder-note{
+    color:var(--muted); font-size:12px; text-align:center; padding:0 20px;
+  }
+  .card-body{padding:20px;}
+  .card-body h3{font-size:17px; font-weight:600; margin-bottom:6px;}
+  .card-body .desc{color:var(--muted); font-size:13px; margin-bottom:14px; line-height:1.7;}
+  .price-row{display:flex; align-items:baseline; gap:10px; margin-bottom:16px;}
+  .price{color:var(--gold); font-size:20px; font-weight:700;}
+  .old-price{color:var(--muted); font-size:14px; text-decoration:line-through;}
+  .order-btn{
+    display:block; text-align:center;
+    background:transparent;
+    border:1px solid var(--gold);
+    color:var(--gold);
+    padding:11px;
+    border-radius:2px;
+    text-decoration:none;
+    font-weight:600;
+    font-size:14px;
+    transition:.25s;
+  }
+  .order-btn:hover{background:var(--gold); color:#0b0b0c;}
+
+  /* ---------- Trust strip ---------- */
+  .trust{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(200px,1fr));
+    gap:30px;
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    padding:50px 6%;
+  }
+  .trust-item{text-align:center;}
+  .trust-item .num{color:var(--gold); font-family:'Cairo',sans-serif; font-size:26px; font-weight:900; display:block; margin-bottom:8px;}
+  .trust-item .label{color:var(--muted); font-size:13px;}
+
+  /* ---------- How to order ---------- */
+  .steps{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:24px;}
+  .step{
+    background:var(--panel); border:1px solid var(--line); border-radius:4px;
+    padding:28px 22px;
+  }
+  .step .step-num{color:var(--gold); font-family:'Cairo',sans-serif; font-weight:900; font-size:28px; display:block; margin-bottom:14px;}
+  .step h3{font-size:16px; margin-bottom:8px;}
+  .step p{color:var(--muted); font-size:13.5px; line-height:1.8;}
+
+  /* ---------- Footer ---------- */
+  footer{
+    padding:50px 6% 30px;
+    text-align:center;
+    border-top:1px solid var(--line);
+    color:var(--muted);
+    font-size:13px;
+  }
+  footer .brand{display:block; margin-bottom:14px;}
+  .wa-float{
+    position:fixed; bottom:22px; left:22px; z-index:60;
+    background:#25D366; color:#fff;
+    width:56px; height:56px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    text-decoration:none;
+    box-shadow:0 6px 20px rgba(0,0,0,0.4);
+    font-size:26px;
+  }
+
+  @media (max-width:640px){
+    .hero-ctas{flex-direction:column; align-items:center;}
+    .btn-primary,.btn-ghost{width:100%; max-width:280px; text-align:center;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">ساعتك<span>.</span></div>
+  <a class="cta-small" href="#catalog">تصفح الساعات</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="dial" id="dial"></div>
+  <div class="hero-inner">
+    <span class="eyebrow">دقة تليق بيك</span>
+    <h1>ساعتك المفضلة<br><em>على معصمك خلال أيام</em></h1>
+    <p>تشكيلة مختارة بعناية من الساعات الرجالي والحريمي، بأسعار تنافسية وتوصيل لباب البيت مع الدفع عند الاستلام.</p>
+    <div class="hero-ctas">
+      <a href="#catalog" class="btn-primary">اطلب دلوقتي</a>
+      <a href="#how" class="btn-ghost">إزاي تطلب؟</a>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST STRIP -->
+<div class="trust">
+  <div class="trust-item"><span class="num">+500</span><span class="label">طلب تم تسليمه</span></div>
+  <div class="trust-item"><span class="num">الدفع</span><span class="label">عند الاستلام</span></div>
+  <div class="trust-item"><span class="num">7-14</span><span class="label">يوم توصيل لكل المحافظات</span></div>
+  <div class="trust-item"><span class="num">ضمان</span><span class="label">استبدال خلال 3 أيام</span></div>
+</div>
+
+<!-- CATALOG -->
+<section class="section" id="catalog">
+  <div class="section-head">
+    <span class="eyebrow">التشكيلة</span>
+    <h2>الساعات المتاحة دلوقتي</h2>
+  </div>
+
+  <div class="grid" id="product-grid">
+    <!-- بيتم بناء الكروت تلقائيًا من مصفوفة products بالأسفل -->
+  </div>
+</section>
+
+<!-- HOW TO ORDER -->
+<section class="section" id="how">
+  <div class="section-head">
+    <span class="eyebrow">بسيطة وسريعة</span>
+    <h2>إزاي تطلب؟</h2>
+  </div>
+  <div class="steps">
+    <div class="step">
+      <span class="step-num">01</span>
+      <h3>اختار الساعة</h3>
+      <p>تصفح التشكيلة واختار الموديل والّلون اللي يعجبك.</p>
+    </div>
+    <div class="step">
+      <span class="step-num">02</span>
+      <h3>ابعت طلبك على واتساب</h3>
+      <p>دوس زرار "اطلب على واتساب" تحت الساعة، وابعتلنا اسمك وعنوانك ورقم موبايلك.</p>
+    </div>
+    <div class="step">
+      <span class="step-num">03</span>
+      <h3>استلم وادفع</h3>
+      <p>هتوصلك الساعة لباب البيت، وتدفع للمندوب وقت الاستلام مباشرة.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="brand">ساعتك<span style="color:var(--gold)">.</span></span>
+  <p>للاستفسار والطلب: تواصل معنا مباشرة على واتساب</p>
+  <p style="margin-top:10px;">© 2026 جميع الحقوق محفوظة</p>
+</footer>
+
+<a class="wa-float" id="wa-float" href="#" target="_blank" title="تواصل على واتساب">🟢</a>
+
+<script>
+/* ============================================================
+   ✏️ عدّل هنا بس: رقم الواتساب ومنتجاتك
+   ============================================================ */
+
+// 1) رقم الواتساب بتاعك بالصيغة الدولية بدون + وبدون مسافات
+//    مثال لمصر: 201xxxxxxxxx
+const WHATSAPP_NUMBER = "201000000000";
+
+// 2) قائمة الساعات - كل ساعة عبارة عن عنصر في المصفوفة دي
+//    لو معندكش صورة حقيقية دلوقتي، سيب image فاضية "" وهيظهر بديل بسيط
+const products = [
+  {
+    name: "ساعة كلاسيك ليذر",
+    desc: "سوار جلد طبيعي، ماكينة كوارتز دقيقة، مقاومة للماء",
+    price: "650",
+    oldPrice: "950",
+    image: ""
+  },
+  {
+    name: "ساعة ستيل رويال",
+    desc: "هيكل ستانلس ستيل، تصميم رجالي فخم، مناسبة للمناسبات",
+    price: "780",
+    oldPrice: "1100",
+    image: ""
+  },
+  {
+    name: "ساعة سبورت إيديشن",
+    desc: "تصميم رياضي عملي، مقاومة للصدمات والماء، مثالية للاستخدام اليومي",
+    price: "590",
+    oldPrice: "850",
+    image: ""
+  },
+  {
+    name: "ساعة حريمي روز جولد",
+    desc: "تصميم أنثوي أنيق، سوار معدني رفيع، تفاصيل ذهبية",
+    price: "620",
+    oldPrice: "890",
+    image: ""
+  }
+];
+
+/* ============================================================
+   من هنا الكود الأساسي - مفيش داعي تعدل فيه
+   ============================================================ */
+
+function buildWALink(productName){
+  const msg = `مرحبًا، أنا مهتم بطلب "${productName}" اللي شفتها على الموقع. ممكن تفاصيل أكتر؟`;
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+}
+
+const grid = document.getElementById('product-grid');
+products.forEach(p => {
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.innerHTML = `
+    <div class="card-img">
+      ${p.image
+        ? `<img src="${p.image}" alt="${p.name}">`
+        : `<span class="placeholder-note">ضيف صورة الساعة هنا<br>(image: "رابط الصورة")</span>`}
+    </div>
+    <div class="card-body">
+      <h3>${p.name}</h3>
+      <p class="desc">${p.desc}</p>
+      <div class="price-row">
+        <span class="price">${p.price} ج.م</span>
+        ${p.oldPrice ? `<span class="old-price">${p.oldPrice} ج.م</span>` : ``}
+      </div>
+      <a class="order-btn" href="${buildWALink(p.name)}" target="_blank">اطلب على واتساب</a>
+    </div>
+  `;
+  grid.appendChild(card);
+});
+
+document.getElementById('wa-float').href = `https://wa.me/${WHATSAPP_NUMBER}`;
+
+// رسم علامات دائرة الساعة (ديكور الخلفية في الهيدر)
+const dial = document.getElementById('dial');
+for(let i=0; i<60; i++){
+  const tick = document.createElement('div');
+  tick.className = 'tick' + (i % 5 === 0 ? ' major' : '');
+  tick.style.transform = `translate(-50%,-100%) rotate(${i*6}deg)`;
+  dial.appendChild(tick);
+}
+</script>
+
+</body>
+</html>
